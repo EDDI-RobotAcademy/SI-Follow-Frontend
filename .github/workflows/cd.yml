@@ -74,7 +74,7 @@ jobs:
   deploy:
     name: Deploy to Production
     needs: build
-    runs-on: [ self-hosted, deploy-lms-frontend ]
+    runs-on: [ self-hosted, deploy-si-follow-frontend ]
     steps:
       - name: Deploy to Production
         run: |
