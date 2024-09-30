@@ -8,7 +8,19 @@ import { css } from "@emotion/react";
 // 이렇게만 한다고 반응형 설정하는게 아님.
 // 잘 모르겟으면 영훈한테 찾아오셈.
 export const globalStyles = css`
-    html {
+    html,
+    body,
+    main,
+    #root {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
         font-size: 62.5%;
+    }
+
+    #__next {
+        width: 100%;
+        height: 100%;
     }
 `;
