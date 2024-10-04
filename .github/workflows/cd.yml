@@ -11,16 +11,22 @@ jobs:
     steps:
     - name: Get Github Actions IP
       id: ip
-      uses: haythem/public-ip@v1.3  
+      uses: haythem/public-ip@v1.2  
 
     - name: Configure AWS IAM Credentials
-      uses: aws-actions/configure-aws-credentials@v2  
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2  
 
     - name: Checkout repository
       uses: actions/checkout@v3 
 
     - name: Setup node.js
-      uses: actions/setup-node@v3  
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'  
 
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
@@ -38,7 +44,7 @@ jobs:
         ls
 
     - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.7.0  
+      uses: webfactory/ssh-agent@v0.5.0  
       with:
         ssh-private-key: ${{ secrets.PRIVATE_KEY }}
 
@@ -53,7 +59,7 @@ jobs:
         username: ec2-user
         key: ${{ secrets.PRIVATE_KEY }}
         source: "./.next/**"
-        target: "/home/ec2-user/si-follow/react-frontend/html"
+        target: "/home/ec2-user/si-follow/actions-frontend"
 
     - name: Remove Github Actions IP From Security Group
       run: |
@@ -61,7 +67,7 @@ jobs:
 
     - name: SSH Agent Cleanup
       if: ${{ always() }}
-      uses: webfactory/ssh-agent@v0.7.0 
+      uses: webfactory/ssh-agent@v0.5.0 
       with:
         ssh-private-key: ${{ secrets.PRIVATE_KEY }}
 
