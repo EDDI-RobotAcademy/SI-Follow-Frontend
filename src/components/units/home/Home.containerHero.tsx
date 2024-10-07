@@ -8,6 +8,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 
 import HomePresenterHero from "./Home.presenterHero";
 import { IHomeContainerHero } from "./Home.types";
+import { GET_KAKAO_OAUTH_URI } from "./Home.queries";
 
 export default function HomeContainerHero(props: IHomeContainerHero) {
     const router = Router;
@@ -18,7 +19,7 @@ export default function HomeContainerHero(props: IHomeContainerHero) {
 
         const handleClickKakao = (event: any) => {
             event.stopPropagation();
-            alert("Kakao Model Clicked!");
+            GET_KAKAO_OAUTH_URI();
             router.push("/chat");
         };
 
