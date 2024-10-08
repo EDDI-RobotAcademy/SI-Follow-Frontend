@@ -27,7 +27,7 @@ export const ChatWrapper = styled(Box)`
     display: flex;
 `;
 
-export const StyledIconButton = styled(IconButton)`
+export const StyledIconButton = styled(IconButton)<{ open: Boolean }>`
     margin-right: 4rem;
     ${(props) => props.open && `display: none;`}
 `;
@@ -45,7 +45,7 @@ export const StyledChevronLeftIcon = styled(ChevronLeftIcon)`
     color: #676e95;
 `;
 
-export const StyledListItemButton = styled(ListItemButton)`
+export const StyledListItemButton = styled(ListItemButton)<{ open: Boolean }>`
     min-height: 4.8rem;
     padding-left: 2rem;
     padding-right: 2rem;
@@ -57,7 +57,7 @@ export const StyledListItem = styled(ListItem)`
     dispaly: block;
 `;
 
-export const StyledListItemIcon = styled(ListItemIcon)`
+export const StyledListItemIcon = styled(ListItemIcon)<{ open: Boolean }>`
     min-width: 0;
     display: flex;
     justify-content: center;
@@ -84,7 +84,7 @@ export const StyledErrorIcon = styled(ErrorIcon)`
     color: #676e95;
 `;
 
-export const StyledListItemText = styled(ListItemText)`
+export const StyledListItemText = styled(ListItemText)<{ open: Boolean }>`
     ${(props) => (props.open ? `opacity: 1` : `opacity: 0`)};
     font-weight: bold;
     color: #676e95;
