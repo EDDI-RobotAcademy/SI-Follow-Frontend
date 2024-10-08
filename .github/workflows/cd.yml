@@ -54,11 +54,6 @@ jobs:
       - name: Check Build Files
         run: |
           ls -la ./out
-
-      - name: Add Github Actions IP to Security group
-        continue-on-error: true
-        run: |
-          aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
         
       - name: SCP Action
         uses: appleboy/scp-action@master
