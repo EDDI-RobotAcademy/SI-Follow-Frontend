@@ -4,6 +4,10 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
 import ChatPresenter from "./Chat.presenter";
 
+interface AppBarProps extends MuiAppBarProps {
+    open?: boolean;
+}
+
 export default function ChatContainer() {
     const theme = useTheme();
     const [_open, setOpen] = useState(false);
