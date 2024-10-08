@@ -16,21 +16,24 @@ export default function ChatPresenterInput(props: IChatPresenterInput) {
 
             <S.UserInputBox>
                 <S.LineNumberBox ref={props._containerRef}>
-                    {Array.from({ length: props._lineCount }, (_, index) => (
-                        <span
-                            key={index}
-                            style={{
-                                display: "block",
-                                height: `${props._lineHeight}px`,
-                            }}
-                        >
-                            {index + 1}
-                        </span>
-                    ))}
+                    {Array.from(
+                        { length: Number(props._lineCount) },
+                        (_, index) => (
+                            <span
+                                key={index}
+                                style={{
+                                    display: "block",
+                                    height: `${props._lineHeight}px`,
+                                }}
+                            >
+                                {index + 1}
+                            </span>
+                        )
+                    )}
                 </S.LineNumberBox>
 
                 <S.StyledForm
-                    onSubmit={props.handleSubmit((data) => {
+                    onSubmit={props.handleSubmit((data: any) => {
                         props.onSubmit(data);
                     })}
                 >

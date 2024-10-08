@@ -24,9 +24,7 @@ export default function ChatPresenter(props: IChatPresenter) {
                         >
                             <MenuIcon />
                         </S.StyledIconButton>
-                        <S.LogoTypgraphy noWrap component="div">
-                            Si-Follow
-                        </S.LogoTypgraphy>
+                        <S.LogoTypgraphy noWrap>Si-Follow</S.LogoTypgraphy>
                     </Toolbar>
                 </props.AppBar>
 
@@ -76,7 +74,7 @@ export default function ChatPresenter(props: IChatPresenter) {
                     </List>
                 </props.Drawer>
 
-                <S.UserInteractiveBox component="main">
+                <S.UserInteractiveBox>
                     <props.DrawerHeader />
                     {props._status === "Input" && (
                         <>
