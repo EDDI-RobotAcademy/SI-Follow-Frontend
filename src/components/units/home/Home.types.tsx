@@ -28,4 +28,5 @@ export interface IHomePresenterHero {
     _isClickedLogin: Boolean;
     onChangeIsClickedLogin: () => void;
     IconBox: ReactNode;
+    containerRef: any;
 }
