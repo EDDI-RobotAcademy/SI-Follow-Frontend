@@ -44,7 +44,6 @@ export default function ChatPresenterInput(props: IChatPresenterInput) {
                             </S.StyledTypography>
                             <S.StyledTextField
                                 {...props.register("userToken")}
-                                value="UserToken123456"
                                 disabled
                             />
                         </S.InputBox>
@@ -68,17 +67,17 @@ export default function ChatPresenterInput(props: IChatPresenterInput) {
 
                         <S.StyledFormControl>
                             <S.StyledFormLabel>Config 설정</S.StyledFormLabel>
-                            <RadioGroup row defaultValue="default1">
+                            <RadioGroup row defaultValue="Default">
                                 <S.StyledFormControlLabel
-                                    value="default1"
+                                    value="Default"
                                     control={<S.StyledRadio />}
-                                    label="default1"
+                                    label="Default1"
                                     {...props.register("config")}
                                 />
                                 <S.StyledFormControlLabel
-                                    value="default2"
+                                    value="Default2"
                                     control={<S.StyledRadio />}
-                                    label="default2"
+                                    label="Default2"
                                     {...props.register("config")}
                                 />
                             </RadioGroup>

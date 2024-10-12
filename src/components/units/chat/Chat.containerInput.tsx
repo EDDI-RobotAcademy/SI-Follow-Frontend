@@ -1,13 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import ChatPresenterInput from "./Chat.presenterInput";
+import {
+    POST_CHECK_CURRENT_PHASE,
+    POST_GET_GITHUB_USER_INFO,
+    POST_REQUEST_AI_COMMAND,
+} from "./Chat.queries";
+import ChatContainerPhase from "./Chat.containerPhase";
 
 export default function ChatContainerInput() {
     const _lineHeight = 20;
+    const [_githubAccessToken, setGithubAccessToken] = useState("");
     const _containerRef = useRef(null);
     const [_lineCount, setLineCount] = useState(0);
     const [_isClickSubmit, setIsClickSubmit] = useState(false);
     const [_logs, setLogs] = useState<string[]>([]);
+    const [_phase, setPhase] = useState("");
+    const _userToken =
+        typeof window !== "undefined"
+            ? sessionStorage.getItem("user_token")
+            : null;
 
     const {
         register,
@@ -15,12 +27,13 @@ export default function ChatContainerInput() {
         formState: { errors },
         reset,
         watch,
+        getValues,
         setValue,
     } = useForm({
         defaultValues: {
-            userToken: "UserToken123456",
+            userToken: _githubAccessToken,
             projectName: "",
-            config: "default1",
+            config: "Default",
             requirements: "",
         },
     });
@@ -30,6 +43,19 @@ export default function ChatContainerInput() {
     const requirements = watch("requirements");
 
     useEffect(() => {
+        const _userToken =
+            typeof window !== "undefined"
+                ? sessionStorage.getItem("user_token")
+                : null;
+
+        const getUserInfoByGithub = async () => {
+            if (_userToken) {
+                await POST_GET_GITHUB_USER_INFO(_userToken).then((res) => {
+                    setGithubAccessToken(res.access_token);
+                });
+            }
+        };
+
         const updateLineCount = () => {
             if (_containerRef.current) {
                 const containerHeight = _containerRef.current.clientHeight;
@@ -39,12 +65,19 @@ export default function ChatContainerInput() {
         };
 
         window.addEventListener("resize", updateLineCount);
+        getUserInfoByGithub();
         updateLineCount();
 
         return () => {
             window.removeEventListener("resize", updateLineCount);
         };
     }, []);
+
+    useEffect(() => {
+        if (_githubAccessToken) {
+            setValue("userToken", _githubAccessToken);
+        }
+    }, [_githubAccessToken, setValue]);
 
     useEffect(() => {
         const updatedLogs = [];
@@ -57,23 +90,45 @@ export default function ChatContainerInput() {
         setLogs(updatedLogs);
     }, [projectName, requirements, config]);
 
-    const onSubmit = (data: any) => {
+    const onSubmit = async () => {
+        const _requestData = [
+            getValues("config"),
+            "llama3.2",
+            getValues("userToken"),
+            getValues("requirements"),
+            getValues("projectName"),
+            process.env.NEXT_PUBLIC_AI_COMMAND_URL,
+        ];
+
+        const _checkData = {
+            user_token: getValues("userToken"),
+            project_name: getValues("projectName"),
+        };
+
         setIsClickSubmit(true);
-        reset();
         setLogs([]);
+        // await POST_REQUEST_AI_COMMAND(_requestData);
+        const _currentPhase = await POST_CHECK_CURRENT_PHASE(_checkData);
+        setPhase(_currentPhase);
     };
 
     return (
-        <ChatPresenterInput
-            _lineHeight={_lineHeight}
-            _lineCount={_lineCount}
-            _containerRef={_containerRef}
-            register={register}
-            handleSubmit={handleSubmit}
-            errors={errors}
-            onSubmit={onSubmit}
-            _isClickSubmit={_isClickSubmit}
-            _logs={_logs}
-        />
+        <>
+            {_phase === "" ? (
+                <ChatPresenterInput
+                    _lineHeight={_lineHeight}
+                    _lineCount={_lineCount}
+                    _containerRef={_containerRef}
+                    register={register}
+                    handleSubmit={handleSubmit}
+                    errors={errors}
+                    onSubmit={onSubmit}
+                    _isClickSubmit={_isClickSubmit}
+                    _logs={_logs}
+                />
+            ) : (
+                <ChatContainerPhase />
+            )}
+        </>
     );
 }

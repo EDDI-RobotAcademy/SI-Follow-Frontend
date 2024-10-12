@@ -12,7 +12,10 @@ export default function GithubRedirectionContainer() {
         const githubRedirectData = async () => {
             if (_code) {
                 try {
-                    await POST_GITHUB_ACCESS_TOKEN_URI(_code);
+                    await POST_GITHUB_ACCESS_TOKEN_URI(_code).then((res) => {
+                        const _userToken = res.userToken;
+                        sessionStorage.setItem("user_token", _userToken);
+                    });
 
                     router.push("/chat");
                 } catch (error) {
