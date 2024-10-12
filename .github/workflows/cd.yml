@@ -92,7 +92,6 @@ jobs:
           host: ${{ secrets.HOST_PROD }}
           username: ec2-user
           key: ${{ secrets.PRIVATE_KEY }}
-          timeout: 300s
           script_stop: true
           script: |
             cd si-follow/react-frontend
