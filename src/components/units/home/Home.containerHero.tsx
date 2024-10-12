@@ -13,7 +13,7 @@ import { GET_GITHUB_OAUTH_URI, GET_KAKAO_OAUTH_URI } from "./Home.queries";
 export default function HomeContainerHero(props: IHomeContainerHero) {
     const router = Router;
     const containerRef = useRef(null);
-    const uniformsRef = useRef({});
+    const uniformsRef = useRef<any>({});
     const rendererRef = useRef(null);
     const cameraRef = useRef(null);
     const sceneRef = useRef(null);
@@ -103,7 +103,9 @@ export default function HomeContainerHero(props: IHomeContainerHero) {
                     "https://s3-us-west-2.amazonaws.com/s.cdpn.io/982762/clouds-1-tile.jpg",
                     (bg) => {
                         bg.wrapS = THREE.RepeatWrapping;
-                        bg.wrapT = THREE.LinearFilter;
+                        bg.wrapT = THREE.RepeatWrapping;
+                        bg.minFilter = THREE.LinearFilter;
+
                         init(texture, bg);
                         animate();
                     }
@@ -111,7 +113,7 @@ export default function HomeContainerHero(props: IHomeContainerHero) {
             }
         );
 
-        const init = (texture, bg) => {
+        const init = (texture: THREE.Texture, bg: THREE.Texture) => {
             const container = containerRef.current;
             const camera = new THREE.Camera();
             camera.position.z = 1;
