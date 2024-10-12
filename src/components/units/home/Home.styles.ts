@@ -28,12 +28,6 @@ export const LoginText = styled.div`
     padding-top: 2rem;
 `;
 
-export const HeroVideo = styled.video`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-`;
-
 export const HeroButton = styled.button`
     position: absolute;
     margin-bottom: 0.5rem;

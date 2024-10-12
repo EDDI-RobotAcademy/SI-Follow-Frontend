@@ -4,7 +4,9 @@ import { IHomePresenterHero } from "./Home.types";
 export default function HomePresenterHero(props: IHomePresenterHero) {
     return (
         <>
-            <S.HeroWrapper>
+            <S.HeroWrapper
+                style={{ width: "100%", height: "100%", position: "relative" }}
+            >
                 {props._isClickedLogin ? (
                     <>
                         <S.LoginText>로그인</S.LoginText>
@@ -12,11 +14,9 @@ export default function HomePresenterHero(props: IHomePresenterHero) {
                     </>
                 ) : (
                     <>
-                        <S.HeroVideo
-                            src="/videos/space.mp4"
-                            autoPlay
-                            muted
-                            loop
+                        <div
+                            ref={props.containerRef}
+                            style={{ width: "100%" }}
                         />
                         <S.HeroButton onClick={props.onChangeIsClickedLogin}>
                             시작하기
