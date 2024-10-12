@@ -143,7 +143,7 @@ export default function HomeContainerHero(props: IHomeContainerHero) {
             scene.add(mesh);
 
             const renderer = new THREE.WebGLRenderer();
-            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setPixelRatio(1);
             container.appendChild(renderer.domElement);
             rendererRef.current = renderer;
 
@@ -166,6 +166,8 @@ export default function HomeContainerHero(props: IHomeContainerHero) {
         const onResize = () => {
             const container = containerRef.current;
             const renderer = rendererRef.current;
+
+            console.log(container);
 
             if (container && renderer) {
                 const width = container.clientWidth;
