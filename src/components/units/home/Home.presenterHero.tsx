@@ -16,7 +16,7 @@ export default function HomePresenterHero(props: IHomePresenterHero) {
                     <>
                         <div
                             ref={props.containerRef}
-                            style={{ width: "100%" }}
+                            style={{ width: "100%", height: "100%" }}
                         />
                         <S.HeroButton onClick={props.onChangeIsClickedLogin}>
                             시작하기
