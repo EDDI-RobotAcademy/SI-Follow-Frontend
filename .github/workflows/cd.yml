@@ -54,7 +54,7 @@ jobs:
       - name: Check Build Files
         run: |
           ls -la ./out
-
+          
       - name: Add Github Actions IP to Security group
         continue-on-error: true
         run: |
@@ -69,10 +69,7 @@ jobs:
           source: "./out/**"
           target: "/home/ec2-user/si-follow/react-frontend/html"  
       
-      - name: Remove Github Actions IP From Security Group
-        run: |
-          aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
-
+     
   deploy:
     needs: build
     name: Deploy
@@ -95,6 +92,7 @@ jobs:
           host: ${{ secrets.HOST_IP }}
           username: ec2-user
           key: ${{ secrets.PRIVATE_KEY }}
+          timeout: 60s
           script_stop: true
           script: |
             cd si-follow/react-frontend
