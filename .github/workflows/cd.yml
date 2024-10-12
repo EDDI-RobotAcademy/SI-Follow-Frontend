@@ -89,7 +89,7 @@ jobs:
       - name: Deploy to prod
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.HOST_IP }}
+          host: ${{ secrets.HOST_PROD }}
           username: ec2-user
           key: ${{ secrets.PRIVATE_KEY }}
           timeout: 300s
