@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import ChatPresenterInput from "./Chat.presenterInput";
+
+import InputPresenter from "./Input.presenter";
+import PhaseContainer from "../phase/Phase.container";
 import {
     POST_GET_GITHUB_USER_INFO,
     POST_REQUEST_AI_COMMAND,
-} from "./Chat.queries";
-import ChatContainerPhase from "./Chat.containerPhase";
+} from "./Input.queries";
 
-export default function ChatContainerInput() {
+export default function InputContainer() {
     const _lineHeight = 20;
     const [_githubAccessToken, setGithubAccessToken] = useState("");
     const _containerRef = useRef(null);
@@ -96,6 +97,7 @@ export default function ChatContainerInput() {
         ];
 
         await POST_REQUEST_AI_COMMAND(_requestData).then((res) => {
+            console.log("res", res);
             setPhase("DemandAnalysis");
         });
         setIsClickSubmit(true);
@@ -105,7 +107,7 @@ export default function ChatContainerInput() {
     return (
         <>
             {_phase === "" ? (
-                <ChatPresenterInput
+                <InputPresenter
                     _lineHeight={_lineHeight}
                     _lineCount={_lineCount}
                     _containerRef={_containerRef}
@@ -117,7 +119,7 @@ export default function ChatContainerInput() {
                     _logs={_logs}
                 />
             ) : (
-                <ChatContainerPhase
+                <PhaseContainer
                     _phase={_phase}
                     setPhase={setPhase}
                     getValues={getValues}

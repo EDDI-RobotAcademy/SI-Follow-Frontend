@@ -6,11 +6,11 @@ import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 
-import HomePresenterHero from "./Home.presenterHero";
-import { IHomeContainerHero } from "./Home.types";
-import { GET_GITHUB_OAUTH_URI, GET_KAKAO_OAUTH_URI } from "./Home.queries";
+import HeroPresenter from "./Hero.presenter";
+import { IHeroContainer } from "./Hero.types";
+import { GET_GITHUB_OAUTH_URI, GET_KAKAO_OAUTH_URI } from "./Hero.queries";
 
-export default function HomeContainerHero(props: IHomeContainerHero) {
+export default function HeroContainer(props: IHeroContainer) {
     const router = Router;
     const containerRef = useRef(null);
     const uniformsRef = useRef<any>({});
@@ -394,7 +394,7 @@ export default function HomeContainerHero(props: IHomeContainerHero) {
 
     return (
         <>
-            <HomePresenterHero
+            <HeroPresenter
                 _isClickedLogin={props._isClickedLogin}
                 onChangeIsClickedLogin={props.onChangeIsClickedLogin}
                 IconBox={<IconBox />}
