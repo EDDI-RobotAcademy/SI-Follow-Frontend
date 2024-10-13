@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import ChatPresenterInput from "./Chat.presenterInput";
 import {
-    POST_CHECK_CURRENT_PHASE,
     POST_GET_GITHUB_USER_INFO,
     POST_REQUEST_AI_COMMAND,
 } from "./Chat.queries";
@@ -16,10 +15,6 @@ export default function ChatContainerInput() {
     const [_isClickSubmit, setIsClickSubmit] = useState(false);
     const [_logs, setLogs] = useState<string[]>([]);
     const [_phase, setPhase] = useState("");
-    const _userToken =
-        typeof window !== "undefined"
-            ? sessionStorage.getItem("user_token")
-            : null;
 
     const {
         register,
@@ -100,16 +95,11 @@ export default function ChatContainerInput() {
             process.env.NEXT_PUBLIC_AI_COMMAND_URL,
         ];
 
-        const _checkData = {
-            user_token: getValues("userToken"),
-            project_name: getValues("projectName"),
-        };
-
+        await POST_REQUEST_AI_COMMAND(_requestData).then((res) => {
+            setPhase("DemandAnalysis");
+        });
         setIsClickSubmit(true);
         setLogs([]);
-        // await POST_REQUEST_AI_COMMAND(_requestData);
-        const _currentPhase = await POST_CHECK_CURRENT_PHASE(_checkData);
-        setPhase(_currentPhase);
     };
 
     return (
@@ -127,7 +117,11 @@ export default function ChatContainerInput() {
                     _logs={_logs}
                 />
             ) : (
-                <ChatContainerPhase />
+                <ChatContainerPhase
+                    _phase={_phase}
+                    setPhase={setPhase}
+                    getValues={getValues}
+                />
             )}
         </>
     );
