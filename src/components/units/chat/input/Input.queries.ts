@@ -22,12 +22,3 @@ export const POST_REQUEST_AI_COMMAND = async (params: Array<string>) => {
 
     return response.data;
 };
-
-export const POST_CHECK_CURRENT_PHASE = async (params: Object) => {
-    const response = await axiosInstance.fastapiAxiosInst.post(
-        "/check-current-phase",
-        params
-    );
-
-    return response.data;
-};

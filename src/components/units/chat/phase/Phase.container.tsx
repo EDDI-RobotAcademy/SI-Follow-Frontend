@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import ChatPresenterPhase from "./Chat.presenterPhase";
-import { POST_CHECK_CURRENT_PHASE } from "./Chat.queries";
-import { IChatContainerPhase } from "./Chat.types";
 
-export default function ChatContainerPhase(props: IChatContainerPhase) {
+import PhasePresenter from "./Phase.presenter";
+import { POST_CHECK_CURRENT_PHASE } from "./Phase.queries";
+import { IPhaseContainer } from "./Phase.types";
+
+export default function PhaseContainer(props: IPhaseContainer) {
     let intervalId: any;
 
     const fetchData = async () => {
@@ -16,15 +17,7 @@ export default function ChatContainerPhase(props: IChatContainerPhase) {
             const _currentPhase = await POST_CHECK_CURRENT_PHASE(_checkData);
             props.setPhase(_currentPhase?.phase);
 
-            if (
-                _currentPhase?.phase === "CodeComplete" ||
-                _currentPhase?.phase === "CodeReviewComment" ||
-                _currentPhase?.phase === "CodeReviewModification" ||
-                _currentPhase?.phase === "TestErrorSummary" ||
-                _currentPhase?.phase === "TestModification" ||
-                _currentPhase?.phase === "EnvironmentDoc" ||
-                _currentPhase?.phase === "Manual"
-            ) {
+            if (_currentPhase?.phase === "Done") {
                 clearInterval(intervalId);
             }
         } catch (error) {
@@ -33,6 +26,10 @@ export default function ChatContainerPhase(props: IChatContainerPhase) {
     };
 
     const transferPhase = (phase: string) => {
+        // get-file-list: 생성 완료된 파일 리스트 - 리스트형식
+        // get-test-reports: 테스트 리포트 확인 - 리스트형식
+        // get-code-review: 코드리뷰 확인 - 리스트형식
+
         switch (phase) {
             case "DemandAnalysis":
                 return "요구 분석중";
@@ -65,7 +62,10 @@ export default function ChatContainerPhase(props: IChatContainerPhase) {
 
     return (
         <>
-            <ChatPresenterPhase _phase={transferPhase(props._phase)} />
+            {props._phase === "Done" && <div>123</div>}
+            {props._phase !== "Done" && (
+                <PhasePresenter _phase={transferPhase(props._phase)} />
+            )}
         </>
     );
 }

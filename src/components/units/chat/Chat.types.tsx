@@ -10,32 +10,3 @@ export interface IChatPresenter {
     handleDrawerClose: () => void;
     handleClickMenuItem: (item: string) => void;
 }
-
-export interface IFormInput {
-    userToken: string;
-    projectName: string;
-    config: string;
-    requirements: string;
-}
-
-export interface IChatPresenterInput {
-    _lineHeight: Number;
-    _lineCount: Number;
-    _containerRef: any;
-    register: any;
-    handleSubmit: any;
-    errors: any;
-    onSubmit: (data: IFormInput) => void;
-    _isClickSubmit: Boolean;
-    _logs: Array<string>;
-}
-
-export interface IChatContainerPhase {
-    _phase: string;
-    setPhase: any;
-    getValues: any;
-}
-
-export interface IChatPresenterPhase {
-    _phase: string;
-}

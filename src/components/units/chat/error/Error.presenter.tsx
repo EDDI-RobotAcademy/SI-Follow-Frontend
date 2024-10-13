@@ -1,4 +1,4 @@
-export default function ChatPresenterError() {
+export default function ErrorPresenter() {
     return (
         <>
             <div>Error</div>

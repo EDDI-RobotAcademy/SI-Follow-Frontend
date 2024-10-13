@@ -3,10 +3,10 @@ import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
-import HomePresenterModel from "./Home.presenterModel";
-import { IHomeContainerModel } from "./Home.types";
+import ModelPresenter from "./Model.presenter";
+import { IModelContainer } from "./Model.types";
 
-export default function HomeContainerModel(props: IHomeContainerModel) {
+export default function ModelContainer(props: IModelContainer) {
     const _group = useRef<any>();
     const [_isClickedLogin, setIsClickedLogin] = useState<Boolean>(false);
     const { nodes, materials } = useGLTF("/3d/mac.glb");
@@ -95,7 +95,7 @@ export default function HomeContainerModel(props: IHomeContainerModel) {
 
     return (
         <>
-            <HomePresenterModel
+            <ModelPresenter
                 _pressedKey={props._pressedKey}
                 _group={_group}
                 nodes={nodes}
