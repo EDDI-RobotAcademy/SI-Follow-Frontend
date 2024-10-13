@@ -1,5 +1,3 @@
-import { ChangeEvent } from "react";
-
 export interface IChatPresenter {
     theme: any;
     _open: Boolean;
@@ -30,4 +28,14 @@ export interface IChatPresenterInput {
     onSubmit: (data: IFormInput) => void;
     _isClickSubmit: Boolean;
     _logs: Array<string>;
+}
+
+export interface IChatContainerPhase {
+    _phase: string;
+    setPhase: any;
+    getValues: any;
+}
+
+export interface IChatPresenterPhase {
+    _phase: string;
 }
