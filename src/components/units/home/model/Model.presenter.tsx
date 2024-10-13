@@ -1,11 +1,11 @@
 import * as THREE from "three";
 import { Html } from "@react-three/drei";
 
-import HomeContainerHero from "./Home.containerHero";
-import * as S from "./Home.styles";
-import { IHomePresenterModel } from "./Home.types";
+import HeroContainer from "../hero/Hero.container";
+import * as S from "./Model.styles";
+import { IModelPresenter } from "./Model.types";
 
-export default function HomePresenterModel(props: IHomePresenterModel) {
+export default function ModelPresenter(props: IModelPresenter) {
     return (
         <>
             <group ref={props._group} dispose={null}>
@@ -29,16 +29,16 @@ export default function HomePresenterModel(props: IHomePresenterModel) {
                                 transform
                                 occlude
                             >
-                                <S.HomePresenterHeroWrapper
+                                <S.HeroContainerContainer
                                     onPointerDown={(e) => e.stopPropagation()}
                                 >
-                                    <HomeContainerHero
+                                    <HeroContainer
                                         _isClickedLogin={props._isClickedLogin}
                                         onChangeIsClickedLogin={
                                             props.onChangeIsClickedLogin
                                         }
                                     />
-                                </S.HomePresenterHeroWrapper>
+                                </S.HeroContainerContainer>
                             </Html>
                         </mesh>
                     </group>

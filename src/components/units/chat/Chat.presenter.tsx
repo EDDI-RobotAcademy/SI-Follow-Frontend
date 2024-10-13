@@ -1,12 +1,12 @@
 import { Toolbar, List, CssBaseline, Divider, IconButton } from "@mui/material";
-
-import * as S from "./Chat.styles";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChatContainerInput from "./Chat.containerInput";
-import ChatPresenterAnimation from "./Chat.presenterAnimation";
-import ChatPresenterBacklog from "./Chat.presenterBacklog";
-import ChatPresenterError from "./Chat.presenterError";
+
+import InputContainer from "./input/Input.container";
+import AnimationPresenter from "./animation/Animation.presenter";
+import BacklogPresenter from "./backlog/Backlog.presenter";
+import ErrorPresenter from "./error/Error.presenter";
 import { IChatPresenter } from "./Chat.types";
+import * as S from "./Chat.styles";
 
 export default function ChatPresenter(props: IChatPresenter) {
     return (
@@ -78,25 +78,25 @@ export default function ChatPresenter(props: IChatPresenter) {
                     <props.DrawerHeader />
                     {props._status === "Input" && (
                         <>
-                            <ChatContainerInput />
+                            <InputContainer />
                         </>
                     )}
 
                     {props._status === "Animation" && (
                         <>
-                            <ChatPresenterAnimation />
+                            <AnimationPresenter />
                         </>
                     )}
 
                     {props._status === "Backlog" && (
                         <>
-                            <ChatPresenterBacklog />
+                            <BacklogPresenter />
                         </>
                     )}
 
                     {props._status === "Error" && (
                         <>
-                            <ChatPresenterError />
+                            <ErrorPresenter />
                         </>
                     )}
                 </S.UserInteractiveBox>

@@ -1,7 +1,7 @@
-import * as S from "./Home.styles";
-import { IHomePresenterHero } from "./Home.types";
+import * as S from "./Hero.styles";
+import { IHeroPresenter } from "./Hero.types";
 
-export default function HomePresenterHero(props: IHomePresenterHero) {
+export default function HeroPresenter(props: IHeroPresenter) {
     return (
         <>
             <S.HeroWrapper

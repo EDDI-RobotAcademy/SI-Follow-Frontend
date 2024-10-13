@@ -1,10 +1,11 @@
 import { RadioGroup } from "@mui/material";
-import * as S from "./Chat.styles";
-import { IChatPresenterInput } from "./Chat.types";
 
-export default function ChatPresenterInput(props: IChatPresenterInput) {
+import * as S from "./Input.styles";
+import { IInputPresenter } from "./Input.types";
+
+export default function InputPresenter(props: IInputPresenter) {
     return (
-        <S.ChatPresenterInputBox>
+        <S.InputPresenterWrapper>
             <S.FileBox>
                 <S.FileNameBox>
                     Input.html
@@ -115,6 +116,6 @@ export default function ChatPresenterInput(props: IChatPresenterInput) {
                     ))}
                 {props._isClickSubmit && <div>〉〉〉 Compiling...</div>}
             </S.TerminalBox>
-        </S.ChatPresenterInputBox>
+        </S.InputPresenterWrapper>
     );
 }
