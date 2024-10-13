@@ -1,7 +1,12 @@
-export default function ChatPresenterPhase() {
+import * as S from "./Chat.styles";
+import { IChatPresenterPhase } from "./Chat.types";
+
+export default function ChatPresenterPhase(props: IChatPresenterPhase) {
     return (
         <>
-            <div>123</div>
+            <S.LoaderBox>
+                <S.Loader phase={props._phase} />
+            </S.LoaderBox>
         </>
     );
 }

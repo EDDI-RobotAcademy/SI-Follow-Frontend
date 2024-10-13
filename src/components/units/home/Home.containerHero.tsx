@@ -167,8 +167,6 @@ export default function HomeContainerHero(props: IHomeContainerHero) {
             const container = containerRef.current;
             const renderer = rendererRef.current;
 
-            console.log(container);
-
             if (container && renderer) {
                 const width = container.clientWidth;
                 const height = container.clientHeight;
