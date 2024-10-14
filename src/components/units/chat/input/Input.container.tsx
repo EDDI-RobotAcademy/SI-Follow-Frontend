@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRecoilState } from "recoil";
 
 import InputPresenter from "./Input.presenter";
 import PhaseContainer from "../phase/Phase.container";
@@ -7,12 +8,20 @@ import {
     POST_GET_GITHUB_USER_INFO,
     POST_REQUEST_AI_COMMAND,
 } from "./Input.queries";
+import {
+    projectNameStored,
+    requirementStored,
+    userTokenStored,
+} from "@/commons/store/Chat.store";
 
 export default function InputContainer() {
-    const _lineHeight = 20;
-    const [_githubAccessToken, setGithubAccessToken] = useState("");
-    const _containerRef = useRef(null);
-    const [_lineCount, setLineCount] = useState(0);
+    const [_userTokenStored, setUserTokenStored] =
+        useRecoilState(userTokenStored);
+    const [_projectNameStored, setProjectNameStored] =
+        useRecoilState(projectNameStored);
+    const [_requirementStored, setRequirementStored] =
+        useRecoilState(requirementStored);
+
     const [_isClickSubmit, setIsClickSubmit] = useState(false);
     const [_logs, setLogs] = useState<string[]>([]);
     const [_phase, setPhase] = useState("");
@@ -27,16 +36,16 @@ export default function InputContainer() {
         setValue,
     } = useForm({
         defaultValues: {
-            userToken: _githubAccessToken,
+            userToken: _userTokenStored,
             projectName: "",
             config: "Default",
             requirements: "",
         },
     });
 
-    const projectName = watch("projectName");
-    const config = watch("config");
-    const requirements = watch("requirements");
+    const _watchProjectName = watch("projectName");
+    const _watchConfig = watch("config");
+    const _watchRequirements = watch("requirements");
 
     useEffect(() => {
         const _userToken =
@@ -47,44 +56,32 @@ export default function InputContainer() {
         const getUserInfoByGithub = async () => {
             if (_userToken) {
                 await POST_GET_GITHUB_USER_INFO(_userToken).then((res) => {
-                    setGithubAccessToken(res.access_token);
+                    setUserTokenStored(res.access_token);
                 });
             }
         };
 
-        const updateLineCount = () => {
-            if (_containerRef.current) {
-                const containerHeight = _containerRef.current.clientHeight;
-                const count = Math.floor(containerHeight / _lineHeight);
-                setLineCount(count);
-            }
-        };
-
-        window.addEventListener("resize", updateLineCount);
         getUserInfoByGithub();
-        updateLineCount();
-
-        return () => {
-            window.removeEventListener("resize", updateLineCount);
-        };
     }, []);
 
     useEffect(() => {
-        if (_githubAccessToken) {
-            setValue("userToken", _githubAccessToken);
+        if (_userTokenStored) {
+            setValue("userToken", _userTokenStored);
         }
-    }, [_githubAccessToken, setValue]);
+    }, [_userTokenStored, setValue]);
 
     useEffect(() => {
         const updatedLogs = [];
 
-        if (projectName)
-            updatedLogs.push(`〉〉〉 프로젝트 이름: ${projectName}`);
-        if (config) updatedLogs.push(`〉〉〉 Config 설정: ${config}`);
-        if (requirements) updatedLogs.push(`〉〉〉 요구사항: ${requirements}`);
+        if (_watchProjectName)
+            updatedLogs.push(`〉〉〉 프로젝트 이름: ${_watchProjectName}`);
+        if (_watchConfig)
+            updatedLogs.push(`〉〉〉 Config 설정: ${_watchConfig}`);
+        if (_watchRequirements)
+            updatedLogs.push(`〉〉〉 요구사항: ${_watchRequirements}`);
 
         setLogs(updatedLogs);
-    }, [projectName, requirements, config]);
+    }, [_watchProjectName, _watchRequirements, _watchConfig]);
 
     const onSubmit = async () => {
         const _requestData = [
@@ -96,21 +93,22 @@ export default function InputContainer() {
             process.env.NEXT_PUBLIC_AI_COMMAND_URL,
         ];
 
-        await POST_REQUEST_AI_COMMAND(_requestData).then((res) => {
-            console.log("res", res);
-            setPhase("DemandAnalysis");
-        });
+        setProjectNameStored(getValues("projectName"));
+        setRequirementStored(getValues("requirements"));
+
         setIsClickSubmit(true);
-        setLogs([]);
+
+        setTimeout(async () => {
+            await POST_REQUEST_AI_COMMAND(_requestData).then(() => {
+                setPhase("DemandAnalysis");
+            });
+        }, 500);
     };
 
     return (
         <>
             {_phase === "" ? (
                 <InputPresenter
-                    _lineHeight={_lineHeight}
-                    _lineCount={_lineCount}
-                    _containerRef={_containerRef}
                     register={register}
                     handleSubmit={handleSubmit}
                     errors={errors}
@@ -119,11 +117,7 @@ export default function InputContainer() {
                     _logs={_logs}
                 />
             ) : (
-                <PhaseContainer
-                    _phase={_phase}
-                    setPhase={setPhase}
-                    getValues={getValues}
-                />
+                <PhaseContainer _phase={_phase} setPhase={setPhase} />
             )}
         </>
     );
