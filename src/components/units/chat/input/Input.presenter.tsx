@@ -2,6 +2,7 @@ import { RadioGroup } from "@mui/material";
 
 import * as S from "./Input.styles";
 import { IInputPresenter } from "./Input.types";
+import LineNumberContainer from "@/components/commons/lineNumber/LineNumber.container";
 
 export default function InputPresenter(props: IInputPresenter) {
     return (
@@ -16,22 +17,7 @@ export default function InputPresenter(props: IInputPresenter) {
             </S.FileBox>
 
             <S.UserInputBox>
-                <S.LineNumberBox ref={props._containerRef}>
-                    {Array.from(
-                        { length: Number(props._lineCount) },
-                        (_, index) => (
-                            <span
-                                key={index}
-                                style={{
-                                    display: "block",
-                                    height: `${props._lineHeight}px`,
-                                }}
-                            >
-                                {index + 1}
-                            </span>
-                        )
-                    )}
-                </S.LineNumberBox>
+                <LineNumberContainer />
 
                 <S.StyledForm
                     onSubmit={props.handleSubmit((data: any) => {
