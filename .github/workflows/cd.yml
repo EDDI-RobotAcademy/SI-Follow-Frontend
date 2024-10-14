@@ -60,7 +60,17 @@ jobs:
         run: |
           aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
         
-      - name: SCP Action
+      - name: Delete existing out folder on server  # 서버의 기존 out 폴더를 삭제
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST_PROD }}
+          username: ec2-user
+          key: ${{ secrets.PRIVATE_KEY }}
+          script_stop: true
+          script: |
+            rm -rf /home/ec2-user/si-follow/react-frontend/html/*
+          
+      - name: SCP Action  # 새로운 out 폴더 복사
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST_IP }}
