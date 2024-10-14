@@ -12,4 +12,5 @@ export interface IInputPresenter {
     onSubmit: (data: IFormInput) => void;
     _isClickSubmit: Boolean;
     _logs: Array<string>;
+    sliceUserToken: () => string;
 }
