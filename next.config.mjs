@@ -2,6 +2,11 @@
 const nextConfig = {
     output: "export",
     images: { unoptimized: true },
+    exportPathMap: () => ({
+        "/": { page: "/" },
+        "/chat": { page: "/chat" },
+        "/github/github-access-token": { page: "/github/github-access-token" },
+    }),
 };
 
 export default nextConfig;
