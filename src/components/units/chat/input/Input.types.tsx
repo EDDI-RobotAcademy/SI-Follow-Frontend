@@ -6,9 +6,6 @@ export interface IFormInput {
 }
 
 export interface IInputPresenter {
-    _lineHeight: Number;
-    _lineCount: Number;
-    _containerRef: any;
     register: any;
     handleSubmit: any;
     errors: any;

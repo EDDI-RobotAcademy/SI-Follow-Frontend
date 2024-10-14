@@ -56,19 +56,6 @@ export const UserInputBox = styled(Box)`
     display: flex;
 `;
 
-export const LineNumberBox = styled(Box)`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    position: relative;
-    padding-left: 1rem;
-    padding-right: 2rem;
-    overflow: hidden;
-    font-size: 1.6rem;
-    color: #414863;
-`;
-
 export const StyledForm = styled.form`
     width: 100%;
 `;

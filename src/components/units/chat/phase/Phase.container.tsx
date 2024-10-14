@@ -1,20 +1,25 @@
 import { useEffect } from "react";
+import { useRecoilState } from "recoil";
 
 import PhasePresenter from "./Phase.presenter";
 import { POST_CHECK_CURRENT_PHASE } from "./Phase.queries";
 import { IPhaseContainer } from "./Phase.types";
+import SummaryContainer from "../summary/Summary.container";
+import { projectNameStored, userTokenStored } from "@/commons/store/Chat.store";
 
 export default function PhaseContainer(props: IPhaseContainer) {
     let intervalId: any;
+    const [_userTokenStored] = useRecoilState(userTokenStored);
+    const [_projectNameStored] = useRecoilState(projectNameStored);
 
-    const fetchData = async () => {
+    const chekcCurrentPhase = async () => {
         try {
-            const _checkData = {
-                user_token: props.getValues("userToken"),
-                project_name: props.getValues("projectName"),
+            const _checkParams = {
+                user_token: _userTokenStored,
+                project_name: _projectNameStored,
             };
 
-            const _currentPhase = await POST_CHECK_CURRENT_PHASE(_checkData);
+            const _currentPhase = await POST_CHECK_CURRENT_PHASE(_checkParams);
             props.setPhase(_currentPhase?.phase);
 
             if (_currentPhase?.phase === "Done") {
@@ -55,14 +60,14 @@ export default function PhaseContainer(props: IPhaseContainer) {
     };
 
     useEffect(() => {
-        intervalId = setInterval(fetchData, 30000);
+        intervalId = setInterval(chekcCurrentPhase, 3000);
 
         return () => clearInterval(intervalId);
     }, []);
 
     return (
         <>
-            {props._phase === "Done" && <div>123</div>}
+            {props._phase === "Done" && <SummaryContainer />}
             {props._phase !== "Done" && (
                 <PhasePresenter _phase={transferPhase(props._phase)} />
             )}

@@ -11,6 +11,7 @@ import {
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import InputIcon from "@mui/icons-material/Input";
+import SummarizeIcon from "@mui/icons-material/Summarize";
 import AnimationIcon from "@mui/icons-material/Animation";
 import HistoryIcon from "@mui/icons-material/History";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -57,6 +58,11 @@ export const StyledListItemIcon = styled(ListItemIcon)<{ open: Boolean }>`
 `;
 
 export const StyledInputIcon = styled(InputIcon)`
+    font-size: 2.4rem;
+    color: #676e95;
+`;
+
+export const StyledSummarizeIcon = styled(SummarizeIcon)`
     font-size: 2.4rem;
     color: #676e95;
 `;

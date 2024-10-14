@@ -2,6 +2,7 @@ import { Toolbar, List, CssBaseline, Divider, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import InputContainer from "./input/Input.container";
+import SummaryContainer from "./summary/Summary.container";
 import AnimationPresenter from "./animation/Animation.presenter";
 import BacklogPresenter from "./backlog/Backlog.presenter";
 import ErrorPresenter from "./error/Error.presenter";
@@ -53,9 +54,12 @@ export default function ChatPresenter(props: IChatPresenter) {
                                             <S.StyledInputIcon />
                                         ) : index % props._menuItem.length ===
                                           1 ? (
-                                            <S.StyledAnimationIcon />
+                                            <S.StyledSummarizeIcon />
                                         ) : index % props._menuItem.length ===
                                           2 ? (
+                                            <S.StyledAnimationIcon />
+                                        ) : index % props._menuItem.length ===
+                                          3 ? (
                                             <S.StyledHistoryIcon />
                                         ) : (
                                             <S.StyledErrorIcon />
@@ -79,6 +83,12 @@ export default function ChatPresenter(props: IChatPresenter) {
                     {props._status === "Input" && (
                         <>
                             <InputContainer />
+                        </>
+                    )}
+
+                    {props._status === "Summary" && (
+                        <>
+                            <SummaryContainer />
                         </>
                     )}
 
