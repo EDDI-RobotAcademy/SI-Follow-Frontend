@@ -14,7 +14,7 @@ export default function ChatContainer() {
     const [_open, setOpen] = useState(false);
     const [_status, setStatus] = useState("Input");
 
-    const _menuItem = ["Input", "Animation", "Backlog", "Error"];
+    const _menuItem = ["Input", "Summary", "Animation", "Backlog", "Error"];
 
     const drawerWidth = 180;
 
@@ -114,6 +114,7 @@ export default function ChatContainer() {
             theme={theme}
             _open={_open}
             _status={_status}
+            setStatus={setStatus}
             _menuItem={_menuItem}
             AppBar={AppBar}
             Drawer={Drawer}

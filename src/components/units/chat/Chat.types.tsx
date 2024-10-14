@@ -2,6 +2,7 @@ export interface IChatPresenter {
     theme: any;
     _open: Boolean;
     _status: string;
+    setStatus: any;
     _menuItem: Array<string>;
     AppBar: any;
     Drawer: any;
