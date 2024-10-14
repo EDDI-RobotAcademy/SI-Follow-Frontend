@@ -47,6 +47,19 @@ export default function InputContainer() {
     const _watchConfig = watch("config");
     const _watchRequirements = watch("requirements");
 
+    const sliceUserToken = () => {
+        const maxLength = 10;
+        if (_userTokenStored.length <= maxLength) {
+            return _userTokenStored;
+        } else {
+            const remainingLength = _userTokenStored.length - maxLength;
+            return (
+                _userTokenStored.substring(0, maxLength) +
+                "x".repeat(remainingLength)
+            );
+        }
+    };
+
     useEffect(() => {
         const _userToken =
             typeof window !== "undefined"
@@ -115,6 +128,7 @@ export default function InputContainer() {
                     onSubmit={onSubmit}
                     _isClickSubmit={_isClickSubmit}
                     _logs={_logs}
+                    sliceUserToken={sliceUserToken}
                 />
             ) : (
                 <PhaseContainer _phase={_phase} setPhase={setPhase} />

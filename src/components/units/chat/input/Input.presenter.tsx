@@ -31,6 +31,7 @@ export default function InputPresenter(props: IInputPresenter) {
                             </S.StyledTypography>
                             <S.StyledTextField
                                 {...props.register("userToken")}
+                                value={props.sliceUserToken()}
                                 disabled
                             />
                         </S.InputBox>
