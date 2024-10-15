@@ -82,6 +82,7 @@ export const StyledTypography = styled(Typography)`
 
 export const StyledTextField = styled(TextField)`
     & .MuiOutlinedInput-root {
+        line-height: 2rem;
         color: #eeffff;
 
         & fieldset {
