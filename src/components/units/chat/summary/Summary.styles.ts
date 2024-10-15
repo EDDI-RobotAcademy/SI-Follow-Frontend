@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Box, Typography } from "@mui/material";
+import { Box, Pagination, Typography } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
 export const SummaryPresenterWrapper = styled(Box)`
@@ -9,7 +9,7 @@ export const SummaryPresenterWrapper = styled(Box)`
 
 export const SummaryBox = styled(Box)`
     width: 100%;
-    height: calc(100% - 15rem);
+    height: calc(100% - 25rem);
     display: flex;
 `;
 
@@ -56,15 +56,9 @@ export const CodeReviewBox = styled(Box)`
     width: calc(100% - 20rem);
     height: 100%;
     display: flex;
-    overflow-y: auto;
-`;
-
-export const CodeReviews = styled(Box)`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
     overflow: auto;
-    padding: 1rem;
+    padding: 2rem;
+    padding-left: 0;
 
     &::-webkit-scrollbar {
         display: none;
@@ -85,21 +79,50 @@ export const CodeReviews = styled(Box)`
     }
 `;
 
-export const CodeReview = styled(Typography)`
+export const CodeReviews = styled(Box)`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+`;
+
+export const CodeReview = styled(Box)`
     margin-bottom: 1.5rem;
     font-size: 1.6rem;
-    color: #676e95;
+    color: #eeffff;
+`;
+
+export const FileName2 = styled(Typography)`
+    margin-left: 1.6rem;
+    font-size: 2rem;
+`;
+
+export const StyledPre = styled.pre`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding-top: 3rem;
+    font-size: 1.6rem;
+    color: #eeffff;
+    background-color: #282d3e;
 `;
 
 export const TestReportBox = styled(Box)`
     width: 100%;
-    height: 15rem;
-    max-height: 15rem;
-    padding: 1rem;
+    height: 25rem;
+    max-height: 25rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #444267;
+`;
+
+export const TestReportsScrollableArea = styled(Box)`
+    flex: 1;
     overflow: auto;
+    padding: 1rem;
     font-size: 1.6rem;
     color: #eeffff;
-    background-color: #444267;
 
     &::-webkit-scrollbar {
         display: none;
@@ -133,4 +156,22 @@ export const StyledDoubleArrowIcon = styled(DoubleArrowIcon)`
 export const TestReport = styled(Typography)`
     font-size: 1.6rem;
     color: #eeffff;
+`;
+
+export const PaginationBox = styled(Box)`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0;
+`;
+
+export const StyledPagination = styled(Pagination)`
+    & .MuiPaginationItem-root {
+        color: #eeffff;
+        font-size: 1.25rem;
+    }
+
+    & .Mui-selected {
+        background-color: #676e95;
+    }
 `;

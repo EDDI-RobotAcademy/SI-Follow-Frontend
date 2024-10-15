@@ -1,5 +1,6 @@
 export interface IChatPresenter {
     theme: any;
+    _phaseStored: string;
     _open: Boolean;
     _status: string;
     setStatus: any;

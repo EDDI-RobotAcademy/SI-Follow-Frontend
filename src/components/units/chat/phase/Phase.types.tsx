@@ -1,6 +1,5 @@
 export interface IPhaseContainer {
-    _phase: string;
-    setPhase: any;
+    setStatus: any;
 }
 
 export interface IPhasePresenter {

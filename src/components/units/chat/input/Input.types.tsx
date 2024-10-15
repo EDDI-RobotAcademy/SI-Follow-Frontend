@@ -5,6 +5,10 @@ export interface IFormInput {
     requirements: string;
 }
 
+export interface IInputConatiner {
+    setStatus: any;
+}
+
 export interface IInputPresenter {
     register: any;
     handleSubmit: any;
@@ -12,5 +16,4 @@ export interface IInputPresenter {
     onSubmit: (data: IFormInput) => void;
     _isClickSubmit: Boolean;
     _logs: Array<string>;
-    sliceUserToken: () => string;
 }
