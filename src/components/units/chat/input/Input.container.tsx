@@ -101,9 +101,9 @@ export default function InputContainer(props: IInputConatiner) {
         setIsClickSubmit(true);
 
         setTimeout(async () => {
-            // await POST_REQUEST_AI_COMMAND(_requestData).then(() => {
-            setPhaseStored("DemandAnalysis");
-            // });
+            await POST_REQUEST_AI_COMMAND(_requestData).then(() => {
+                setPhaseStored("DemandAnalysis");
+            });
         }, 500);
     };
 
