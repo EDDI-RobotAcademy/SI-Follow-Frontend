@@ -82,29 +82,28 @@ export default function ChatPresenter(props: IChatPresenter) {
                     <props.DrawerHeader />
                     {props._status === "Input" && (
                         <>
-                            <InputContainer />
+                            <InputContainer setStatus={props.setStatus} />
                         </>
                     )}
 
-                    {props._status === "Summary" && (
+                    {props._phaseStored !== "Done" ? (
+                        <div>아직 구동중입니다.</div>
+                    ) : props._phaseStored === "Done" &&
+                      props._status === "Summary" ? (
                         <>
                             <SummaryContainer />
                         </>
-                    )}
-
-                    {props._status === "Animation" && (
+                    ) : props._phaseStored === "Done" &&
+                      props._status === "Animation" ? (
                         <>
                             <AnimationPresenter />
                         </>
-                    )}
-
-                    {props._status === "Backlog" && (
+                    ) : props._phaseStored === "Done" &&
+                      props._status === "Backlog" ? (
                         <>
                             <BacklogPresenter />
                         </>
-                    )}
-
-                    {props._status === "Error" && (
+                    ) : (
                         <>
                             <ErrorPresenter />
                         </>

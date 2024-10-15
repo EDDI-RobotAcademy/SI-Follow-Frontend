@@ -9,22 +9,24 @@ import {
     POST_REQUEST_AI_COMMAND,
 } from "./Input.queries";
 import {
+    phaseStored,
     projectNameStored,
     requirementStored,
     userTokenStored,
 } from "@/commons/store/Chat.store";
+import { IInputConatiner } from "./Input.types";
 
-export default function InputContainer() {
+export default function InputContainer(props: IInputConatiner) {
     const [_userTokenStored, setUserTokenStored] =
         useRecoilState(userTokenStored);
     const [_projectNameStored, setProjectNameStored] =
         useRecoilState(projectNameStored);
     const [_requirementStored, setRequirementStored] =
         useRecoilState(requirementStored);
+    const [_phaseStored, setPhaseStored] = useRecoilState(phaseStored);
 
     const [_isClickSubmit, setIsClickSubmit] = useState(false);
     const [_logs, setLogs] = useState<string[]>([]);
-    const [_phase, setPhase] = useState("");
 
     const {
         register,
@@ -47,19 +49,6 @@ export default function InputContainer() {
     const _watchConfig = watch("config");
     const _watchRequirements = watch("requirements");
 
-    const sliceUserToken = () => {
-        const maxLength = 10;
-        if (_userTokenStored.length <= maxLength) {
-            return _userTokenStored;
-        } else {
-            const remainingLength = _userTokenStored.length - maxLength;
-            return (
-                _userTokenStored.substring(0, maxLength) +
-                "x".repeat(remainingLength)
-            );
-        }
-    };
-
     useEffect(() => {
         const _userToken =
             typeof window !== "undefined"
@@ -69,7 +58,7 @@ export default function InputContainer() {
         const getUserInfoByGithub = async () => {
             if (_userToken) {
                 await POST_GET_GITHUB_USER_INFO(_userToken).then((res) => {
-                    setUserTokenStored(res.access_token);
+                    setUserTokenStored(res.user_info.login);
                 });
             }
         };
@@ -112,15 +101,15 @@ export default function InputContainer() {
         setIsClickSubmit(true);
 
         setTimeout(async () => {
-            await POST_REQUEST_AI_COMMAND(_requestData).then(() => {
-                setPhase("DemandAnalysis");
-            });
+            // await POST_REQUEST_AI_COMMAND(_requestData).then(() => {
+            setPhaseStored("DemandAnalysis");
+            // });
         }, 500);
     };
 
     return (
         <>
-            {_phase === "" ? (
+            {_phaseStored === "" ? (
                 <InputPresenter
                     register={register}
                     handleSubmit={handleSubmit}
@@ -128,10 +117,9 @@ export default function InputContainer() {
                     onSubmit={onSubmit}
                     _isClickSubmit={_isClickSubmit}
                     _logs={_logs}
-                    sliceUserToken={sliceUserToken}
                 />
             ) : (
-                <PhaseContainer _phase={_phase} setPhase={setPhase} />
+                <PhaseContainer setStatus={props.setStatus} />
             )}
         </>
     );

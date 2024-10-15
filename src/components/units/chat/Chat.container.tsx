@@ -4,6 +4,8 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
 
 import ChatPresenter from "./Chat.presenter";
+import { useRecoilState } from "recoil";
+import { phaseStored } from "@/commons/store/Chat.store";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -11,6 +13,8 @@ interface AppBarProps extends MuiAppBarProps {
 
 export default function ChatContainer() {
     const theme = useTheme();
+    const [_phaseStored, setPhaseStored] = useRecoilState(phaseStored);
+
     const [_open, setOpen] = useState(false);
     const [_status, setStatus] = useState("Input");
 
@@ -112,6 +116,7 @@ export default function ChatContainer() {
     return (
         <ChatPresenter
             theme={theme}
+            _phaseStored={_phaseStored}
             _open={_open}
             _status={_status}
             setStatus={setStatus}

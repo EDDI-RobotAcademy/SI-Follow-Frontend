@@ -14,3 +14,8 @@ export const requirementStored = atom({
     key: "requirementStored",
     default: "",
 });
+
+export const phaseStored = atom({
+    key: "phaseStored",
+    default: "",
+});

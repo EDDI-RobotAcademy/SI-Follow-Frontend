@@ -4,13 +4,17 @@ import { useRecoilState } from "recoil";
 import PhasePresenter from "./Phase.presenter";
 import { POST_CHECK_CURRENT_PHASE } from "./Phase.queries";
 import { IPhaseContainer } from "./Phase.types";
-import SummaryContainer from "../summary/Summary.container";
-import { projectNameStored, userTokenStored } from "@/commons/store/Chat.store";
+import {
+    phaseStored,
+    projectNameStored,
+    userTokenStored,
+} from "@/commons/store/Chat.store";
 
 export default function PhaseContainer(props: IPhaseContainer) {
     let intervalId: any;
     const [_userTokenStored] = useRecoilState(userTokenStored);
     const [_projectNameStored] = useRecoilState(projectNameStored);
+    const [_phaseStored, setPhaseStored] = useRecoilState(phaseStored);
 
     const chekcCurrentPhase = async () => {
         try {
@@ -20,9 +24,10 @@ export default function PhaseContainer(props: IPhaseContainer) {
             };
 
             const _currentPhase = await POST_CHECK_CURRENT_PHASE(_checkParams);
-            props.setPhase(_currentPhase?.phase);
+            setPhaseStored(_currentPhase?.phase);
 
             if (_currentPhase?.phase === "Done") {
+                props.setStatus("Summary");
                 clearInterval(intervalId);
             }
         } catch (error) {
@@ -31,10 +36,6 @@ export default function PhaseContainer(props: IPhaseContainer) {
     };
 
     const transferPhase = (phase: string) => {
-        // get-file-list: 생성 완료된 파일 리스트 - 리스트형식
-        // get-test-reports: 테스트 리포트 확인 - 리스트형식
-        // get-code-review: 코드리뷰 확인 - 리스트형식
-
         switch (phase) {
             case "DemandAnalysis":
                 return "요구 분석중";
@@ -60,16 +61,15 @@ export default function PhaseContainer(props: IPhaseContainer) {
     };
 
     useEffect(() => {
-        intervalId = setInterval(chekcCurrentPhase, 3000);
+        intervalId = setInterval(chekcCurrentPhase, 1000);
 
         return () => clearInterval(intervalId);
     }, []);
 
     return (
         <>
-            {props._phase === "Done" && <SummaryContainer />}
-            {props._phase !== "Done" && (
-                <PhasePresenter _phase={transferPhase(props._phase)} />
+            {_phaseStored !== "Done" && (
+                <PhasePresenter _phase={transferPhase(_phaseStored)} />
             )}
         </>
     );

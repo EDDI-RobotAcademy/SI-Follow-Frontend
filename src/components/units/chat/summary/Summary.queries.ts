@@ -26,3 +26,12 @@ export const POST_GET_FILE_LIST = async (params: Object) => {
 
     return response.data;
 };
+
+export const POST_GET_FILE_CONTENT = async (params: Object) => {
+    const response = await axiosInstance.fastapiAxiosInst.post(
+        "/get-file-content",
+        params
+    );
+
+    return response.data;
+};
