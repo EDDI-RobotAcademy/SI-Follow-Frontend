@@ -61,7 +61,7 @@ export default function PhaseContainer(props: IPhaseContainer) {
     };
 
     useEffect(() => {
-        intervalId = setInterval(chekcCurrentPhase, 1000);
+        intervalId = setInterval(chekcCurrentPhase, 10000);
 
         return () => clearInterval(intervalId);
     }, []);
