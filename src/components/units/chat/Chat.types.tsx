@@ -1,6 +1,7 @@
 export interface IChatPresenter {
     theme: any;
     _phaseStored: string;
+    _isClickSubmitStored: Boolean;
     _open: Boolean;
     _status: string;
     setStatus: any;
