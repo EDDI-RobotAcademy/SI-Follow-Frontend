@@ -96,11 +96,11 @@ export default function InputPresenter(props: IInputPresenter) {
             </S.UserInputBox>
 
             <S.TerminalBox>
-                {!props._isClickSubmit &&
+                {!props._isClickSubmitStored &&
                     props._logs.map((log, index) => (
                         <div key={index}>{log}</div>
                     ))}
-                {props._isClickSubmit && <div>〉〉〉 Compiling...</div>}
+                {props._isClickSubmitStored && <div>〉〉〉 Compiling...</div>}
             </S.TerminalBox>
         </S.InputPresenterWrapper>
     );

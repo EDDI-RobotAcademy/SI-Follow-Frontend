@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import HomePresenter from "./Home.presenter";
+import LoginPresenter from "./Login.presenter";
 
-export default function HomeContainer() {
+export default function LoginContainer() {
     const [_pressedKey, setPressedKey] = useState<string | null>(null);
 
     useEffect(() => {
@@ -93,7 +93,7 @@ export default function HomeContainer() {
 
     return (
         <>
-            <HomePresenter _pressedKey={_pressedKey} />
+            <LoginPresenter _pressedKey={_pressedKey} />
         </>
     );
 }

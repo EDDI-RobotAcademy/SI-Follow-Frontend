@@ -1,8 +1,6 @@
-import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 
 import PhasePresenter from "./Phase.presenter";
-import { POST_CHECK_CURRENT_PHASE } from "./Phase.queries";
 import { IPhaseContainer } from "./Phase.types";
 import {
     phaseStored,
@@ -11,29 +9,9 @@ import {
 } from "@/commons/store/Chat.store";
 
 export default function PhaseContainer(props: IPhaseContainer) {
-    let intervalId: any;
     const [_userTokenStored] = useRecoilState(userTokenStored);
     const [_projectNameStored] = useRecoilState(projectNameStored);
-    const [_phaseStored, setPhaseStored] = useRecoilState(phaseStored);
-
-    const chekcCurrentPhase = async () => {
-        try {
-            const _checkParams = {
-                user_token: _userTokenStored,
-                project_name: _projectNameStored,
-            };
-
-            const _currentPhase = await POST_CHECK_CURRENT_PHASE(_checkParams);
-            setPhaseStored(_currentPhase?.phase);
-
-            if (_currentPhase?.phase === "Done") {
-                props.setStatus("Summary");
-                clearInterval(intervalId);
-            }
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
+    const [_phaseStored] = useRecoilState(phaseStored);
 
     const transferPhase = (phase: string) => {
         switch (phase) {
@@ -59,12 +37,6 @@ export default function PhaseContainer(props: IPhaseContainer) {
                 return "메뉴얼 수정중";
         }
     };
-
-    useEffect(() => {
-        intervalId = setInterval(chekcCurrentPhase, 10000);
-
-        return () => clearInterval(intervalId);
-    }, []);
 
     return (
         <>

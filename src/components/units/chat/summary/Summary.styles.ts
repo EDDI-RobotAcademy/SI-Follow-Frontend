@@ -18,24 +18,17 @@ export const FileListBox = styled(Box)`
     height: 100%;
     border-right: 0.1px solid #676e95;
     overflow: auto;
-    scrollbar-width: none;
 
     &::-webkit-scrollbar {
         display: none;
     }
 
     &:hover {
-        scrollbar-width: thin;
+        overflow: auto;
     }
 
-    &:hover::-webkit-scrollbar {
-        display: block;
-        width: 8px;
-    }
-
-    &:hover::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 4px;
+    &::-webkit-scrollbar {
+        display: none;
     }
 `;
 
@@ -57,25 +50,14 @@ export const CodeReviewBox = styled(Box)`
     height: 100%;
     display: flex;
     overflow: auto;
-    padding: 2rem;
-    padding-left: 0;
+    padding: 0rem;
+
+    &:hover {
+        overflow: auto;
+    }
 
     &::-webkit-scrollbar {
         display: none;
-    }
-
-    &:hover {
-        scrollbar-width: thin;
-    }
-
-    &:hover::-webkit-scrollbar {
-        display: block;
-        width: 8px;
-    }
-
-    &:hover::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 4px;
     }
 `;
 
@@ -83,6 +65,7 @@ export const CodeReviews = styled(Box)`
     height: 100%;
     display: flex;
     flex-direction: column;
+    padding: 2rem;
 `;
 
 export const CodeReview = styled(Box)`
@@ -123,24 +106,6 @@ export const TestReportsScrollableArea = styled(Box)`
     padding: 1rem;
     font-size: 1.6rem;
     color: #eeffff;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-
-    &:hover {
-        scrollbar-width: thin;
-    }
-
-    &:hover::-webkit-scrollbar {
-        display: block;
-        width: 8px;
-    }
-
-    &:hover::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 4px;
-    }
 `;
 
 export const TestReports = styled(Box)`
