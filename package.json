@@ -6,7 +6,11 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "optimize-gltf": "gltf-pipeline -i ./public/3d/edit.gltf --draco.compressionLevel 10 --draco.compressMeshes -s -o ./public/3d/temp.gltf",
+        "mix": "gltf-pipeline -i ./public/3d/temp.gltf -b -o ./public/3d/temp2.glb",
+        "glb": "gltf-pipeline -i ./public/3d/edit.glb --draco.compressionLevel 10 --draco.compressMeshes -s -o ./public/3d/output4.glb",
+        "seperate": "gltf-pipeline -i ./public/3d/edit.glb -o ./public/3d/temp.gltf --separate"
     },
     "dependencies": {
         "@emotion/react": "^11.13.3",
@@ -17,14 +21,18 @@
         "@react-three/fiber": "^8.17.7",
         "@types/three": "^0.168.0",
         "axios": "^1.7.7",
+        "gltf-pipeline": "^4.1.0",
+        "gsap": "^3.12.5",
+        "html2canvas": "^1.4.1",
         "next": "14.2.10",
         "react": "^18",
         "react-dom": "^18",
         "react-hook-form": "^7.53.0",
         "recoil": "^0.7.7",
-        "three": "^0.168.0"
+        "three": "^0.169.0"
     },
     "devDependencies": {
+        "@types/gsap": "^3.0.0",
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",
