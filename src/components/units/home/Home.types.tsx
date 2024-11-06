@@ -1,3 +1,4 @@
 export interface IHomePresenter {
-    _pressedKey: string | null;
+    nodes: any;
+    materials: any;
 }
