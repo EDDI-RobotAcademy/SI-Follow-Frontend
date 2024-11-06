@@ -9,8 +9,6 @@ import {
     POST_REQUEST_AI_COMMAND,
 } from "./Input.queries";
 import {
-    configStored,
-    isClickSubmitStored,
     phaseStored,
     projectNameStored,
     requirementStored,
@@ -23,13 +21,11 @@ export default function InputContainer(props: IInputConatiner) {
         useRecoilState(userTokenStored);
     const [_projectNameStored, setProjectNameStored] =
         useRecoilState(projectNameStored);
-    const [_configStored, setConfigStored] = useRecoilState(configStored);
     const [_requirementStored, setRequirementStored] =
         useRecoilState(requirementStored);
     const [_phaseStored, setPhaseStored] = useRecoilState(phaseStored);
-    const [_isClickSubmitStored, setIsClickSubmitStored] =
-        useRecoilState(isClickSubmitStored);
 
+    const [_isClickSubmit, setIsClickSubmit] = useState(false);
     const [_logs, setLogs] = useState<string[]>([]);
 
     const {
@@ -52,28 +48,6 @@ export default function InputContainer(props: IInputConatiner) {
     const _watchProjectName = watch("projectName");
     const _watchConfig = watch("config");
     const _watchRequirements = watch("requirements");
-
-    const onSubmit = async () => {
-        setProjectNameStored(getValues("projectName"));
-        setConfigStored(getValues("config"));
-        setRequirementStored(getValues("requirements"));
-        setIsClickSubmitStored(true);
-
-        const _requestData = [
-            getValues("config"),
-            "llama3.2",
-            getValues("userToken"),
-            getValues("requirements"),
-            getValues("projectName"),
-            process.env.NEXT_PUBLIC_AI_COMMAND_URL,
-        ];
-
-        setTimeout(async () => {
-            await POST_REQUEST_AI_COMMAND(_requestData).then(() => {
-                setPhaseStored("DemandAnalysis");
-            });
-        }, 500);
-    };
 
     useEffect(() => {
         const _userToken =
@@ -111,6 +85,28 @@ export default function InputContainer(props: IInputConatiner) {
         setLogs(updatedLogs);
     }, [_watchProjectName, _watchRequirements, _watchConfig]);
 
+    const onSubmit = async () => {
+        const _requestData = [
+            getValues("config"),
+            "llama3.2",
+            getValues("userToken"),
+            getValues("requirements"),
+            getValues("projectName"),
+            process.env.NEXT_PUBLIC_AI_COMMAND_URL,
+        ];
+
+        setProjectNameStored(getValues("projectName"));
+        setRequirementStored(getValues("requirements"));
+
+        setIsClickSubmit(true);
+
+        setTimeout(async () => {
+            await POST_REQUEST_AI_COMMAND(_requestData).then(() => {
+                setPhaseStored("DemandAnalysis");
+            });
+        }, 500);
+    };
+
     return (
         <>
             {_phaseStored === "" ? (
@@ -119,7 +115,7 @@ export default function InputContainer(props: IInputConatiner) {
                     handleSubmit={handleSubmit}
                     errors={errors}
                     onSubmit={onSubmit}
-                    _isClickSubmitStored={_isClickSubmitStored}
+                    _isClickSubmit={_isClickSubmit}
                     _logs={_logs}
                 />
             ) : (
