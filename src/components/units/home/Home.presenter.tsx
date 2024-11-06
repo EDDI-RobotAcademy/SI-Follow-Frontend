@@ -2,17 +2,18 @@ import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment, ContactShadows, OrbitControls } from "@react-three/drei";
 
-import * as S from "./Login.styles";
-import { ILoginPresenter } from "./Login.types";
+import ModelContainer from "./model/Model.container";
+import * as S from "./Home.styles";
+import { IHomePresenter } from "./Home.types";
 
-export default function HomePresenter(props: ILoginPresenter) {
+export default function HomePresenter(props: IHomePresenter) {
     return (
-        <S.LoginWrapper>
+        <S.HomeWrapper>
             <Canvas camera={{ position: [0, 0, -15], fov: 50 }}>
                 <pointLight position={[10, 10, 10]} intensity={1.5} />
                 <Suspense fallback={null}>
                     <group rotation={[0, Math.PI, 0]} position={[0, 1, 0]}>
-                        {/* <ModelContainer _pressedKey={props._pressedKey} /> */}
+                        <ModelContainer _pressedKey={props._pressedKey} />
                     </group>
                     <Environment preset="city" />
                 </Suspense>
@@ -29,6 +30,6 @@ export default function HomePresenter(props: ILoginPresenter) {
                     maxPolarAngle={Math.PI / 2.2}
                 />
             </Canvas>
-        </S.LoginWrapper>
+        </S.HomeWrapper>
     );
 }

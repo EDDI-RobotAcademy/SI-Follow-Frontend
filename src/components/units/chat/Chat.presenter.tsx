@@ -7,7 +7,6 @@ import AnimationPresenter from "./animation/Animation.presenter";
 import BacklogPresenter from "./backlog/Backlog.presenter";
 import ErrorPresenter from "./error/Error.presenter";
 import { IChatPresenter } from "./Chat.types";
-import PhaseContainer from "./phase/Phase.container";
 import * as S from "./Chat.styles";
 
 export default function ChatPresenter(props: IChatPresenter) {
@@ -81,70 +80,33 @@ export default function ChatPresenter(props: IChatPresenter) {
 
                 <S.UserInteractiveBox>
                     <props.DrawerHeader />
-                    {props._status === "Input" ? (
-                        props._phaseStored === "" &&
-                        !props._isClickSubmitStored ? (
+                    {props._status === "Input" && (
+                        <>
                             <InputContainer setStatus={props.setStatus} />
-                        ) : props._phaseStored === "Done" ? (
-                            <div
-                                style={{
-                                    width: "100%",
-                                    height: "calc(100% - 6.4rem)",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    fontSize: "2.5rem",
-                                    color: "#eeffff",
-                                }}
-                            >
-                                <div>
-                                    현재 요청사항을 모두 구동완료하였습니다.
-                                </div>
-                            </div>
-                        ) : (
-                            <PhaseContainer setStatus={props.setStatus} />
-                        )
-                    ) : props._phaseStored === "" ? (
-                        <div
-                            style={{
-                                width: "100%",
-                                height: "calc(100% - 6.4rem)%",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                fontSize: "2.5rem",
-                                color: "#eeffff",
-                            }}
-                        >
-                            <div>아직 요청하지 않은 상태입니다.</div>
-                            <div>요청을 먼저해주세요</div>
-                        </div>
-                    ) : props._phaseStored !== "Done" ? (
-                        <div
-                            style={{
-                                width: "100%",
-                                height: "calc(100% - 6.4rem)%",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                fontSize: "2.5rem",
-                                color: "#eeffff",
-                            }}
-                        >
-                            <div>현재 요청사항을 구동중입니다.</div>
-                            <div>잠시만 기다려주세요.</div>
-                        </div>
-                    ) : props._status === "Summary" ? (
-                        <SummaryContainer />
-                    ) : props._status === "Animation" ? (
-                        <AnimationPresenter />
-                    ) : props._status === "Backlog" ? (
-                        <BacklogPresenter />
+                        </>
+                    )}
+
+                    {props._phaseStored !== "Done" ? (
+                        <div>아직 구동중입니다.</div>
+                    ) : props._phaseStored === "Done" &&
+                      props._status === "Summary" ? (
+                        <>
+                            <SummaryContainer />
+                        </>
+                    ) : props._phaseStored === "Done" &&
+                      props._status === "Animation" ? (
+                        <>
+                            <AnimationPresenter />
+                        </>
+                    ) : props._phaseStored === "Done" &&
+                      props._status === "Backlog" ? (
+                        <>
+                            <BacklogPresenter />
+                        </>
                     ) : (
-                        <ErrorPresenter />
+                        <>
+                            <ErrorPresenter />
+                        </>
                     )}
                 </S.UserInteractiveBox>
             </S.ChatWrapper>
