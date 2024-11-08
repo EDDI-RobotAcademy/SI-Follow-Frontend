@@ -31,7 +31,16 @@ export default function IntroducePresenter() {
                     </S.IntroduceTopSmallTypography>
                 </S.IntroduceTopBox>
 
-                <S.IntroduceVideoBox>비디오 넣을 자리</S.IntroduceVideoBox>
+                <S.IntroduceVideoBox>
+                    <video
+                        src="./videos/test.mov"
+                        width="100%"
+                        height="100%"
+                        autoPlay
+                        muted
+                        loop
+                    />
+                </S.IntroduceVideoBox>
 
                 <S.TrustBox>
                     <S.TrustText>Trusted by engineers at</S.TrustText>

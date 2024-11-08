@@ -41,7 +41,7 @@ export default function PhaseContainer(props: IPhaseContainer) {
     return (
         <>
             {_phaseStored !== "Done" && (
-                <PhasePresenter _phase={transferPhase(_phaseStored)} />
+                <PhasePresenter _phase={_phaseStored} />
             )}
         </>
     );

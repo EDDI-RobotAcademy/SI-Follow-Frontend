@@ -1,15 +1,11 @@
-// Home2Container.jsx
-import React, { useRef, useEffect, useState, Suspense } from "react";
-import html2canvas from "html2canvas";
+import React, { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, OrthographicCamera, Preload } from "@react-three/drei";
+import html2canvas from "html2canvas";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 
-import Model2Container from "./model/Model2.container";
-import IntroduceContainer from "./introduce/Introduce.container";
-import * as S from "./Home.styles";
+import { GET_GITHUB_OAUTH_URI } from "./Home.queries";
+import HomePresenter from "./Home.presenter";
 
 export default function Home2Container() {
     const [capturedTexture, setCapturedTexture] = useState(null);
@@ -19,7 +15,6 @@ export default function Home2Container() {
     const groupRef = useRef(null);
     const screenRef = useRef(null);
     const cameraRef = useRef(null);
-    const targetMeshRef = useRef(null);
     const introDivRef = useRef(null);
 
     const captureScreen = async () => {
@@ -70,6 +65,10 @@ export default function Home2Container() {
         }
     };
 
+    const handleClickLoginButton = () => {
+        GET_GITHUB_OAUTH_URI();
+    };
+
     useEffect(() => {
         if (typeof window !== "undefined") {
             gsap.registerPlugin(ScrollTrigger);
@@ -113,8 +112,6 @@ export default function Home2Container() {
                     const boundingBox = new THREE.Box3().setFromObject(screen);
                     const size = new THREE.Vector3();
                     boundingBox.getSize(size);
-
-                    const aspect = window.innerWidth / window.innerHeight;
 
                     const frustumHeight = size.y;
                     const frustumWidth = size.x;
@@ -183,7 +180,6 @@ export default function Home2Container() {
                             progress
                         );
 
-                        // Optionally, you can also change the rotation for additional camera movement effect
                         const initialRotation = new THREE.Euler(0, 0, 0, "XYZ");
                         const targetRotation = new THREE.Euler(
                             0,
@@ -286,107 +282,17 @@ export default function Home2Container() {
     }, [capturedTexture, cameraRef, isLayout]);
 
     return (
-        <S.CanvasWrapper>
-            <div
-                ref={captureRef}
-                style={{
-                    textAlign: "center",
-                    backgroundColor: "#f0f0f0",
-                }}
-            >
-                <IntroduceContainer />
-            </div>
-
-            <div
-                ref={canvasRef}
-                style={{
-                    width: "100%",
-                    height: "100vh",
-                    position: "absolute",
-                    bottom: "calc(100vh + 2500px)",
-                }}
-            >
-                <Canvas
-                    gl={{
-                        preserveDrawingBuffer: true,
-                        outputColorSpace: THREE.SRGBColorSpace,
-                    }}
-                >
-                    <Suspense fallback={null}>
-                        {/* <OrbitControls enableZoom /> */}
-                        <OrthographicCamera
-                            ref={cameraRef}
-                            makeDefault
-                            position={[0, 0, 10]}
-                            near={1}
-                            far={1000}
-                            zoom={1}
-                        />
-                        <group position={[0, 0, 0]}>
-                            <Model2Container
-                                capturedTexture={capturedTexture}
-                                groupRef={groupRef}
-                                screenRef={screenRef}
-                                cameraRef={cameraRef}
-                                captureScreen={captureScreen}
-                                targetMeshRef={targetMeshRef}
-                                setIsLayout={setIsLayout}
-                            />
-                        </group>
-                        <Preload all />
-                    </Suspense>
-                    <ambientLight intensity={1} />
-                    <spotLight position={[0, 0, 5]} angle={0.15} penumbra={1} />
-                    <pointLight position={[0, 0, 5]} />
-                </Canvas>
-            </div>
-
-            <div
-                className="emptyBox"
-                id="emptyBox"
-                style={{ height: "fitContent" }}
-            >
-                <div style={{ height: "2000px" }} />
-                <div
-                    ref={introDivRef}
-                    style={{
-                        height: "100vh",
-                        display: "flex",
-                        flexDirection: "column",
-                        paddingLeft: "20rem",
-                        paddingRight: "20rem",
-                    }}
-                >
-                    <S.RainbowList>
-                        <S.RainbowLayer color={S.colors.white}>
-                            SI-Follow
-                        </S.RainbowLayer>
-                        <S.RainbowLayer color={S.colors.orange}>
-                            SI-Follow
-                        </S.RainbowLayer>
-                        <S.RainbowLayer color={S.colors.red}>
-                            SI-Follow
-                        </S.RainbowLayer>
-                        <S.RainbowLayer color={S.colors.violet}>
-                            SI-Follow
-                        </S.RainbowLayer>
-                        <S.RainbowLayer color={S.colors.blue}>
-                            SI-Follow
-                        </S.RainbowLayer>
-                        <S.RainbowLayer color={S.colors.green}>
-                            SI-Follow
-                        </S.RainbowLayer>
-                        <S.RainbowLayer color={S.colors.yellow}>
-                            SI-Follow
-                        </S.RainbowLayer>
-                    </S.RainbowList>
-                    <div style={{ fontSize: "5rem", color: "#ffffff" }}>
-                        Type anything you’d like to ask or choose from
-                        ready-made questions!
-                    </div>
-                </div>
-                <div style={{ height: "500px" }} />
-            </div>
-        </S.CanvasWrapper>
+        <HomePresenter
+            captureRef={captureRef}
+            canvasRef={canvasRef}
+            cameraRef={cameraRef}
+            groupRef={groupRef}
+            screenRef={screenRef}
+            introDivRef={introDivRef}
+            capturedTexture={capturedTexture}
+            captureScreen={captureScreen}
+            setIsLayout={setIsLayout}
+            handleClickLoginButton={handleClickLoginButton}
+        />
     );
 }

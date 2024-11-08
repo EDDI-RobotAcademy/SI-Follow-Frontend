@@ -1,9 +1,7 @@
-import { IModel2Presenter } from "./Model.types";
-import { useThree } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { IModelPresenter } from "./Model.types";
 import * as THREE from "three";
 
-export default function Model2Presenter(props: IModel2Presenter) {
+export default function Model2Presenter(props: IModelPresenter) {
     return (
         <>
             <group
@@ -1091,7 +1089,6 @@ export default function Model2Presenter(props: IModel2Presenter) {
                     position={[3.515, 0, -2.596]}
                 />
                 <mesh
-                    ref={props.targetMeshRef}
                     castShadow
                     receiveShadow
                     geometry={props.nodes.Object_327.geometry}

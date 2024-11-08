@@ -2,7 +2,7 @@ import axiosInstance from "@/commons/libs/axiosInstance";
 
 export const POST_CHECK_CURRENT_PHASE = async (params: Object) => {
     const response = await axiosInstance.fastapiAxiosInst.post(
-        "/check-current-phase",
+        "/llama-check-current-phase",
         params
     );
 
