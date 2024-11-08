@@ -2,7 +2,7 @@ import axiosInstance from "@/commons/libs/axiosInstance";
 
 export const POST_GET_CODE_REVIEW = async (params: Object) => {
     const response = await axiosInstance.fastapiAxiosInst.post(
-        "/get-code-review",
+        "/llama-get-code-review",
         params
     );
 
@@ -11,7 +11,7 @@ export const POST_GET_CODE_REVIEW = async (params: Object) => {
 
 export const POST_GET_TEST_REPORTS = async (params: Object) => {
     const response = await axiosInstance.fastapiAxiosInst.post(
-        "/get-test-reports",
+        "/llama-get-test-reports",
         params
     );
 
@@ -20,7 +20,7 @@ export const POST_GET_TEST_REPORTS = async (params: Object) => {
 
 export const POST_GET_FILE_LIST = async (params: Object) => {
     const response = await axiosInstance.fastapiAxiosInst.post(
-        "/get-file-list",
+        "/llama-get-file-list",
         params
     );
 
@@ -29,7 +29,7 @@ export const POST_GET_FILE_LIST = async (params: Object) => {
 
 export const POST_GET_FILE_CONTENT = async (params: Object) => {
     const response = await axiosInstance.fastapiAxiosInst.post(
-        "/get-file-content",
+        "/llama-get-file-content",
         params
     );
 

@@ -20,7 +20,7 @@ interface AppBarProps extends MuiAppBarProps {
 export default function ChatContainer() {
     const theme = useTheme();
     let intervalId: any;
-    const _menuItem = ["Input", "Summary", "Animation", "Backlog", "Error"];
+    const _menuItem = ["Input", "Summary", "Animation", "Backlog", "History"];
 
     const [_phaseStored, setPhaseStored] = useRecoilState(phaseStored);
     const [_isClickSubmitStored, _] = useRecoilState(isClickSubmitStored);

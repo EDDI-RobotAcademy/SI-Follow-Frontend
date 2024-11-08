@@ -63,7 +63,7 @@ export default function ChatPresenter(props: IChatPresenter) {
                                           3 ? (
                                             <S.StyledHistoryIcon />
                                         ) : (
-                                            <S.StyledErrorIcon />
+                                            <S.StyledHistoryIcon />
                                         )}
                                     </S.StyledListItemIcon>
                                     <S.StyledListItemText
