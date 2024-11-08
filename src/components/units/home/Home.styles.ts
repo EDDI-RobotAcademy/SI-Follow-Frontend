@@ -1,7 +1,15 @@
 import styled from "@emotion/styled";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
-export const Total = styled(Box)``;
+export const colors = {
+    white: "#fff",
+    orange: "#D49C3D",
+    red: "#D14B3D",
+    violet: "#CF52EB",
+    blue: "#44A3F7",
+    green: "#5ACB3C",
+    yellow: "#DEBF40",
+};
 
 export const CanvasWrapper = styled(Box)`
     width: 100%;
@@ -9,14 +17,32 @@ export const CanvasWrapper = styled(Box)`
     position: relative;
 `;
 
-export const VirtualBox = styled(Box)`
-    height: 100vh;
-    position: absolute;
-    top: 0;
+export const CaptureBox = styled(Box)`
+    text-align: center;
+    background-color: #f0f0f0;
 `;
 
 export const CanvasBox = styled(Box)`
+    width: 100%;
     height: 100vh;
+    position: absolute;
+    bottom: calc(100vh + 2000px);
+`;
+
+export const EmptyBox = styled(Box)`
+    height: fit-content;
+`;
+
+export const EmptyContent = styled(Box)`
+    height: 2000px;
+`;
+
+export const ContentBox = styled(Box)`
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20rem;
+    padding-right: 20rem;
 `;
 
 export const RainbowList = styled.ul`
@@ -83,12 +109,59 @@ export const RainbowLayer = styled.li`
     }
 `;
 
-export const colors = {
-    white: "#fff",
-    orange: "#D49C3D",
-    red: "#D14B3D",
-    violet: "#CF52EB",
-    blue: "#44A3F7",
-    green: "#5ACB3C",
-    yellow: "#DEBF40",
-};
+export const IntroduceContent = styled(Box)`
+    font-size: 5rem;
+    color: #ffffff;
+    margin-bottom: 30rem;
+`;
+
+export const LoginBox = styled(Box)`
+    height: 50rem;
+    font-size: 5rem;
+    color: #ffffff;
+`;
+
+export const LoginButton = styled(Button)`
+    font-size: 2.6rem;
+    color: #ffffff;
+
+    & .MuiButtonBase-root {
+        background-color: red;
+    }
+
+    animation: jittery 4s infinite;
+    @keyframes jittery {
+        5%,
+        50% {
+            transform: scale(1);
+        }
+
+        10% {
+            transform: scale(0.9);
+        }
+
+        15% {
+            transform: scale(1.15);
+        }
+
+        20% {
+            transform: scale(1.15) rotate(-5deg);
+        }
+
+        25% {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        30% {
+            transform: scale(1.15) rotate(-3deg);
+        }
+
+        35% {
+            transform: scale(1.15) rotate(2deg);
+        }
+
+        40% {
+            transform: scale(1.15) rotate(0);
+        }
+    }
+`;

@@ -1,17 +1,15 @@
+import { useEffect, useLayoutEffect, useState } from "react";
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 
-import Model2Presenter from "./Model2.presenter";
-import { IModel2Container } from "./Model.types";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { useThree } from "@react-three/fiber";
+import ModelPresenter from "./Model.presenter";
+import { IModelContainer } from "./Model.types";
 
-export default function Model2Container(props: IModel2Container) {
+export default function Model2Container(props: IModelContainer) {
     const { nodes, materials } = useGLTF("/3d/temp2.glb");
-    const [planeSize, setPlaneSize] = useState([1, 1]);
+    const [planeSize, setPlaneSize] = useState<[number, number]>([1, 1]);
 
     function getMaterialBoundingBox(mesh: any) {
-        console.log("4");
         const box = new THREE.Box3().setFromObject(mesh);
         const size = new THREE.Vector3();
         box.getSize(size);
@@ -20,7 +18,6 @@ export default function Model2Container(props: IModel2Container) {
 
     useEffect(() => {
         if (props.groupRef.current) {
-            console.log("5");
             props.groupRef.current.traverse((child: any) => {
                 if (child.isMesh && !child.userData.isScreen) {
                     child.material.transparent = true;
@@ -35,7 +32,6 @@ export default function Model2Container(props: IModel2Container) {
 
     useLayoutEffect(() => {
         if (props?.capturedTexture && nodes.Object_235_001) {
-            console.log("6");
             const boundingBox = getMaterialBoundingBox(nodes.Object_235_001);
             const meshWidth = boundingBox.x;
             const meshHeight = boundingBox.y;
@@ -57,13 +53,12 @@ export default function Model2Container(props: IModel2Container) {
 
     return (
         <>
-            <Model2Presenter
+            <ModelPresenter
                 nodes={nodes}
                 materials={materials}
                 planeSize={planeSize}
                 groupRef={props.groupRef}
                 screenRef={props.screenRef}
-                targetMeshRef={props.targetMeshRef}
                 capturedTexture={props.capturedTexture}
             />
         </>

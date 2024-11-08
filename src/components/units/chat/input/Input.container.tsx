@@ -61,11 +61,12 @@ export default function InputContainer(props: IInputConatiner) {
 
         const _requestData = [
             getValues("config"),
-            "llama3.2",
+            process.env.NEXT_PUBLIC_MODEL,
             getValues("userToken"),
             getValues("requirements"),
             getValues("projectName"),
             process.env.NEXT_PUBLIC_AI_COMMAND_URL,
+            process.env.NEXT_PUBLIC_AI_TOKEN,
         ];
 
         setTimeout(async () => {

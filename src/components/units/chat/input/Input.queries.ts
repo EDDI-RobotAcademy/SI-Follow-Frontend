@@ -15,7 +15,7 @@ export const POST_REQUEST_AI_COMMAND = async (params: Array<string>) => {
     const response = await axiosInstance.fastapiAxiosInst.post(
         "/request-ai-command",
         {
-            command: 3773,
+            command: 3774,
             data: params,
         }
     );
